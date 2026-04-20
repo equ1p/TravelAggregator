@@ -27,6 +27,12 @@ bld/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+bin/
+obj/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
@@ -52,3 +58,37 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.cab
+Desktop.ini
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.swp
+*.iml
+
+# React/Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
