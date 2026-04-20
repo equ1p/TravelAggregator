@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: travel_mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:latest
+    container_name: travel_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=TravelAggregator!123
+      - MYSQL_DATABASE=AuditLogsDb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    restart: unless-stopped
+    
+  mongodb:
+    image: mongo:latest
+    container_name: travel_mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata:/data/db
+    restart: unless-stopped
+
+volumes:
+  sqlserverdata:
+  mysqldata:
+  mongodata:

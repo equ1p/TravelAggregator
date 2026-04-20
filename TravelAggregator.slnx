@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TravelAggregator.Application/TravelAggregator.Application.csproj" />
+  <Project Path="TravelAggregator.Domain/TravelAggregator.Domain.csproj" />
+  <Project Path="TravelAggregator.Infrastructure/TravelAggregator.Infrastructure.csproj" />
+  <Project Path="TravelAggregator.WebAPI/TravelAggregator.WebAPI.csproj" />
+</Solution>

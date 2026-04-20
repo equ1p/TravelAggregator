@@ -1,0 +1,6 @@
+@TravelAggregator.WebAPI_HostAddress = http://localhost:5286
+
+GET {{TravelAggregator.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
