@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,10 +15,13 @@ namespace TravelAggregator.Infrastructure.Persistence
 
     public DbSet<TravelPolicy> Policies => Set<TravelPolicy>();
 
+    public DbSet<Route> Routes => Set<Route>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.Entity<CustomerLead>().HasKey(e => e.Id);
       modelBuilder.Entity<TravelPolicy>().HasKey(e => e.Id);
+      modelBuilder.Entity<Route>().HasKey(e => e.Id);
       base.OnModelCreating(modelBuilder);
     }
   }

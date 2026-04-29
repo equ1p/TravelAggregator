@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,7 @@ namespace TravelAggregator.Application.Interfaces
   {
     DbSet<CustomerLead> Leads { get; }
     DbSet<TravelPolicy> Policies { get; }
+    DbSet<Route> Routes { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
   }
 }

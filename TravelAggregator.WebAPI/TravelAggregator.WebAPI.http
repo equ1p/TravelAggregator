@@ -4,3 +4,9 @@ GET {{TravelAggregator.WebAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+# Test Duffel API Integration
+GET {{TravelAggregator.WebAPI_HostAddress}}/api/flight/search?origin=LHR&destination=JFK&date=2026-12-01
+Accept: application/json
+
+###

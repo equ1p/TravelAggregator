@@ -1,4 +1,4 @@
-﻿using MongoDB.Bson;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace TravelAggregator.Infrastructure.Persistence
       return await _collection.Find(filter).ToListAsync();
     }
 
-    public async Task SaveRawResponcesAsync(string jsonResponse)
+    public async Task SaveRawResponsesAsync(string jsonResponse)
     {
       var document = BsonDocument.Parse(jsonResponse);
       await _collection.InsertOneAsync(document);
