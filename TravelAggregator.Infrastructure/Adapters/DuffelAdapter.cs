@@ -29,7 +29,6 @@ namespace TravelAggregator.Infrastructure.Adapters
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
             
-            // Duffel requires a version header
             _httpClient.DefaultRequestHeaders.Add("Duffel-Version", "beta");
         }
 

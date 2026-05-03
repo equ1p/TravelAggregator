@@ -6,6 +6,6 @@ namespace TravelAggregator.Application.Interfaces
 {
   public interface ICurrencyService
   {
-    Task<decimal> GetExchangeRatesAsync(string fromCurrency, string toCurrency);
+    Task<decimal> ConvertAsync(decimal amount, string fromCurrency, string toCurrency);
   }
 }

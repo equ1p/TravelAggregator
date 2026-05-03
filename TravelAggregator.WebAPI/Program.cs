@@ -4,6 +4,8 @@ using TravelAggregator.Infrastructure.Persistence;
 using TravelAggregator.Infrastructure.Adapters;
 using Polly;
 using Polly.Extensions.Http;
+using TravelAggregator.Infrastructure.Services;
+using TravelAggregator.Infrastructure.BackgroundJobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,19 @@ builder.Services.AddHttpClient<ITravelProvider, DuffelAdapter>()
         policyBuilder.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
     .AddTransientHttpErrorPolicy(policyBuilder =>
         policyBuilder.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+
+// TODO: Add currency repsository and register
+
+builder.Services.AddHttpClient<ICurrencyRateProvider, ExchangeRateApiAdapter>()
+    .AddTransientHttpErrorPolicy(policyBuilder =>
+        policyBuilder.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))))
+    .AddTransientHttpErrorPolicy(policyBuilder =>
+        policyBuilder.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+
+builder.Services.AddHostedService<CurrencySyncBackgroundService>();
 
 var app = builder.Build();
 
