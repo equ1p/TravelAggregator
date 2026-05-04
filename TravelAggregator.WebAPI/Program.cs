@@ -21,7 +21,10 @@ builder.Services.AddDbContext<AuditDbContext>(options =>
     options.UseMySql(mySqlConn, ServerVersion.AutoDetect(mySqlConn)));
 
 var mongoConn = builder.Configuration.GetConnectionString("MongoDbConnection");
-builder.Services.AddSingleton(new MongoTravelCache(mongoConn, "TravelCacheDb"));
+builder.Services.AddSingleton(new MongoDbContext(mongoConn, "TravelCacheDb"));
+
+builder.Services.AddScoped<IFlightPriceRepository, MongoFlightPriceRepository>();
+builder.Services.AddScoped<ICurrencyRepository, MongoCurrencyRepository>();
 
 builder.Services.AddHttpClient<ITravelProvider, DuffelAdapter>()
     .AddTransientHttpErrorPolicy(policyBuilder =>
@@ -31,8 +34,7 @@ builder.Services.AddHttpClient<ITravelProvider, DuffelAdapter>()
 
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
-
-// TODO: Add currency repsository and register
+builder.Services.AddScoped<IFlightPriceService, FlightPriceService>();
 
 builder.Services.AddHttpClient<ICurrencyRateProvider, ExchangeRateApiAdapter>()
     .AddTransientHttpErrorPolicy(policyBuilder =>
@@ -41,6 +43,7 @@ builder.Services.AddHttpClient<ICurrencyRateProvider, ExchangeRateApiAdapter>()
         policyBuilder.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
 builder.Services.AddHostedService<CurrencySyncBackgroundService>();
+builder.Services.AddHostedService<FlightPriceSyncBackgroundService>();
 
 var app = builder.Build();
 

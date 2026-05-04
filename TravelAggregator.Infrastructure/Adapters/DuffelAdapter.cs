@@ -63,10 +63,10 @@ namespace TravelAggregator.Infrastructure.Adapters
             response.EnsureSuccessStatusCode();
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            return ParseDuffelResponse(jsonResponse);
+            return ParseDuffelResponse(jsonResponse, origin, destination);
         }
 
-        private IEnumerable<FlightDto> ParseDuffelResponse(string json)
+        private IEnumerable<FlightDto> ParseDuffelResponse(string json, string origin, string destination)
         {
             var flights = new List<FlightDto>();
             using var doc = JsonDocument.Parse(json);
@@ -79,6 +79,8 @@ namespace TravelAggregator.Infrastructure.Adapters
                 {
                     var priceStr = offer.GetProperty("total_amount").GetString();
                     var price = decimal.Parse(priceStr ?? "0", System.Globalization.CultureInfo.InvariantCulture);
+
+                    var currency = offer.GetProperty("total_currency").GetString() ?? "USD";
 
                     var owner = offer.GetProperty("owner");
                     var airline = owner.GetProperty("iata_code").GetString(); // Or "name" if preferred
@@ -94,7 +96,10 @@ namespace TravelAggregator.Infrastructure.Adapters
                     {
                         Airline = airline ?? "Unknown",
                         Price = price,
-                        DepartureTime = departure ?? "Unknown"
+                        Currency = currency,
+                        DepartureTime = departure ?? "Unknown",
+                        Origin = origin,
+                        Destination = destination
                     });
                 }
             }
