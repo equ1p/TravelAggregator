@@ -6,6 +6,9 @@ using Polly;
 using Polly.Extensions.Http;
 using TravelAggregator.Infrastructure.Services;
 using TravelAggregator.Infrastructure.BackgroundJobs;
+using DotNetEnv;
+
+Env.TraversePath().Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
