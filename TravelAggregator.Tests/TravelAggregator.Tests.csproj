@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="11.0.0-preview.3.26207.106" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.7" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="11.0.0-preview.3.26207.106" />
       <PackageReference Include="MongoDB.Driver" Version="3.8.0" />
       <PackageReference Include="Moq" Version="4.20.72" />
       <PackageReference Include="RichardSzalay.MockHttp" Version="7.0.0" />
@@ -18,6 +20,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TravelAggregator.Infrastructure\TravelAggregator.Infrastructure.csproj" />
+      <ProjectReference Include="..\TravelAggregator.WebAPI\TravelAggregator.WebAPI.csproj" />
+
     </ItemGroup>
 
 </Project>
